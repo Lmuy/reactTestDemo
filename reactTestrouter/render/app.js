@@ -3,6 +3,7 @@ import { render } from 'react-dom'
 import { Router, Route, IndexRoute, Link, IndexLink } from 'react-router'
 import { createHistory, useBasename } from 'history'
 
+
 import App from '../component/app.js'
 import Mall from '../component/routers/mall/mall.js'
 import Circle from '../component/routers/circle/circle.js'
@@ -17,31 +18,35 @@ import CircleTip from '../component/routers/circle/circleTip.js'
 import CircleSay from '../component/routers/circle/circleSay.js'
 
 const history = useBasename(createHistory)({
-    basename: '/React-Router'
+  basename: '/React-Router'
 });
 
+{/**  {this.props.children}   非常重要**/}
+{/** 思考：首页也有其他分路由，怎么配**/ }
 render((
-    <Router>
-        <Route path="/" component={App}>
-            <IndexRoute component={Index} />
+  <Router>
+    <Route path="/" component={App}>
+      <IndexRoute component={Index} />
 
-            <Route path='type/:typeName' component={Type}/>
+      <Route path="/type/:typeName" component={Type} />
 
-            <Route path='/mall' component={Mall}>
-                <Route path='Type/:typeName' component={Type}/>
-            </Route> 
+      <Route path="/mall" component={Mall}>
+          <Route path="type/:typeName" component={Type} />
+      </Route>
 
-            <Route path='/my' component={My}>
-                <IndexRoute component={MyNav}/>
-                <Route path='userCenter' component={MyUserCenter}/>
-                <Route path='memberClub' component={MemberClub} />
-            </Route>
+      <Route path="/my" component={My}>
+          <IndexRoute component={MyNav} />
+           <Route path="userCenter" component={MyUserCenter} />
+           <Route path="memberClub" component={MemberClub} />
+      </Route>
 
-            <Route path='/circle' component={Circle}>
-                <IndexRoute component={CircleType}/>
-                <Route path='tip/:tipName' component={CircleTip}/>
-                <Route path='say' component={CircleSay}/>
-            </Route>
-        </Route>
-    </Router>
-),document.getElementById('index'))
+      <Route path="/circle" component={Circle}>
+          <IndexRoute component={CircleType} />
+          <Route path="tip/:tipName" component={CircleTip} />
+          <Route path="say" component={CircleSay} />
+      </Route>
+
+    </Route>
+  </Router>
+), document.getElementById('index'))
+
